@@ -23,8 +23,8 @@ const CampaignMemberFilter = () => {
       <div className="bg-white rounded-lg shadow-md p-6">
         {/* Header */}
         <div className="mb-6">
-          <h2 className="text-xl font-bold mb-2">Campaign Member Filter</h2>
-          <p className="text-gray-600">Select criteria to filter campaign members</p>
+          <h2 className="text-xl font-bold mb-2">Campaign List Builder</h2>
+          <p className="text-gray-600">Select criteria to add or suppress campaign members</p>
         </div>
 
         {/* Member Type Selection */}
@@ -37,7 +37,7 @@ const CampaignMemberFilter = () => {
             onChange={(e) => setMemberType(e.target.value)}
             className="w-full p-2 border rounded-md"
           >
-            <option value="">Select member type</option>
+            <option value="">Select member types to include</option>
             <option value="programming">Programming</option>
             <option value="donor">Donor</option>
           </select>
