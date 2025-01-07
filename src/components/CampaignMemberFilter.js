@@ -43,6 +43,23 @@ const CampaignMemberFilter = () => {
           </select>
         </div>
 
+        {/* Timeframe Selection */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium mb-2">
+            Response Timeframe (months) <span className="text-gray-500">(optional)</span>
+          </label>
+          <input
+            type="number"
+            min="1"
+            max="24"
+            value={timeframe}
+            onChange={(e) => setTimeframe(e.target.value)}
+            placeholder="Enter number of months"
+            className="w-full p-2 border rounded-md"
+          />
+          <p className="text-gray-500 text-sm mt-1">Optionally include only members who have responded within this timeframe.</p>
+        </div>
+
         {/* Suppression List */}
         <div className="mb-6">
           <label className="block text-sm font-medium mb-2">
@@ -69,22 +86,6 @@ const CampaignMemberFilter = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Timeframe Selection */}
-        <div className="mb-6">
-          <label className="block text-sm font-medium mb-2">
-            Response Timeframe (months)
-          </label>
-          <input
-            type="number"
-            min="1"
-            max="24"
-            value={timeframe}
-            onChange={(e) => setTimeframe(e.target.value)}
-            placeholder="Enter number of months"
-            className="w-full p-2 border rounded-md"
-          />
         </div>
 
         {/* Action Buttons */}
