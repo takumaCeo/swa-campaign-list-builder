@@ -1,11 +1,4 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { AlertCircle, Filter, Users } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const CampaignMemberFilter = () => {
   const [memberType, setMemberType] = useState("");
@@ -26,96 +19,102 @@ const CampaignMemberFilter = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-4">
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Filter className="h-5 w-5" />
-            Campaign Member Filter
-          </CardTitle>
-          <CardDescription>
-            Select criteria to filter campaign members
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Member Type Selection */}
-          <div className="space-y-2">
-            <Label>Member Type</Label>
-            <Select value={memberType} onValueChange={setMemberType}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select member type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="programming">Programming</SelectItem>
-                <SelectItem value="donor">Donor</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+    <div className="max-w-3xl mx-auto p-4">
+      <div className="bg-white rounded-lg shadow-md p-6">
+        {/* Header */}
+        <div className="mb-6">
+          <h2 className="text-xl font-bold mb-2">Campaign Member Filter</h2>
+          <p className="text-gray-600">Select criteria to filter campaign members</p>
+        </div>
 
-          {/* Suppression List */}
-          <div className="space-y-2">
-            <Label>Suppression List</Label>
-            <div className="border rounded-md p-4 space-y-2">
-              {suppressionCampaigns.map(campaign => (
-                <div key={campaign.id} className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id={`campaign-${campaign.id}`}
-                    className="rounded border-gray-300"
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedCampaigns([...selectedCampaigns, campaign.id]);
-                      } else {
-                        setSelectedCampaigns(selectedCampaigns.filter(id => id !== campaign.id));
-                      }
-                    }}
-                  />
-                  <label htmlFor={`campaign-${campaign.id}`}>{campaign.name}</label>
-                </div>
-              ))}
-            </div>
-          </div>
+        {/* Member Type Selection */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium mb-2">
+            Member Type
+          </label>
+          <select
+            value={memberType}
+            onChange={(e) => setMemberType(e.target.value)}
+            className="w-full p-2 border rounded-md"
+          >
+            <option value="">Select member type</option>
+            <option value="programming">Programming</option>
+            <option value="donor">Donor</option>
+          </select>
+        </div>
 
-          {/* Timeframe Selection */}
-          <div className="space-y-2">
-            <Label>Response Timeframe (months)</Label>
-            <Input 
-              type="number" 
-              min="1"
-              max="24"
-              value={timeframe}
-              onChange={(e) => setTimeframe(e.target.value)}
-              placeholder="Enter number of months"
-            />
+        {/* Suppression List */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium mb-2">
+            Suppression List
+          </label>
+          <div className="border rounded-md p-4 space-y-2">
+            {suppressionCampaigns.map(campaign => (
+              <div key={campaign.id} className="flex items-center">
+                <input
+                  type="checkbox"
+                  id={`campaign-${campaign.id}`}
+                  className="mr-2"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedCampaigns([...selectedCampaigns, campaign.id]);
+                    } else {
+                      setSelectedCampaigns(selectedCampaigns.filter(id => id !== campaign.id));
+                    }
+                  }}
+                />
+                <label htmlFor={`campaign-${campaign.id}`} className="text-sm">
+                  {campaign.name}
+                </label>
+              </div>
+            ))}
           </div>
+        </div>
 
-          {/* Action Buttons */}
-          <div className="flex justify-end space-x-2 pt-4">
-            <Button variant="outline" onClick={() => {
+        {/* Timeframe Selection */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium mb-2">
+            Response Timeframe (months)
+          </label>
+          <input
+            type="number"
+            min="1"
+            max="24"
+            value={timeframe}
+            onChange={(e) => setTimeframe(e.target.value)}
+            placeholder="Enter number of months"
+            className="w-full p-2 border rounded-md"
+          />
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex justify-end space-x-2">
+          <button
+            onClick={() => {
               setMemberType("");
               setTimeframe("");
               setSelectedCampaigns([]);
               setShowResults(false);
-            }}>
-              Reset
-            </Button>
-            <Button onClick={handleApplyFilters}>
-              Apply Filters
-            </Button>
-          </div>
+            }}
+            className="px-4 py-2 border rounded-md hover:bg-gray-50"
+          >
+            Reset
+          </button>
+          <button
+            onClick={handleApplyFilters}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+          >
+            Apply Filters
+          </button>
+        </div>
 
-          {/* Results Preview */}
-          {showResults && (
-            <Alert className="mt-4">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription className="flex items-center gap-2">
-                <Users className="h-4 w-4" />
-                <span>1,234 members match your filter criteria</span>
-              </AlertDescription>
-            </Alert>
-          )}
-        </CardContent>
-      </Card>
+        {/* Results Preview */}
+        {showResults && (
+          <div className="mt-4 p-4 bg-blue-50 text-blue-700 rounded-md">
+            1,234 members match your filter criteria
+          </div>
+        )}
+      </div>
     </div>
   );
 };
