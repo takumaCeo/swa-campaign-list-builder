@@ -1,8 +1,12 @@
 import React from 'react';
+import CampaignMemberFilter from './components/CampaignMemberFilter';
 
 function App() {
-  const value = 'World';
-  return <div>Hello {value}</div>;
+  return (
+    <div className="App">
+      <CampaignMemberFilter />
+    </div>
+  );
 }
 
 export default App;
