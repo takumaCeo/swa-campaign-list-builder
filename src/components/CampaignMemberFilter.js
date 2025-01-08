@@ -24,7 +24,7 @@ const CampaignMemberFilter = () => {
         {/* Header */}
         <div className="mb-6">
           <h2 className="text-xl font-bold mb-2">Campaign List Builder</h2>
-          <p className="text-gray-600">Select criteria to add or suppress campaign members</p>
+          <p className="text-gray-600">Select criteria to build a custom list of campaign members</p>
         </div>
 
         {/* Member Type Selection */}
